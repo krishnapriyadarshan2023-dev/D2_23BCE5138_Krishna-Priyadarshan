@@ -1,0 +1,308 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 225 50% 4%;
+    --foreground: 0 0% 100%;
+    --card: 225 40% 8%;
+    --card-foreground: 0 0% 100%;
+    --popover: 225 40% 8%;
+    --popover-foreground: 0 0% 100%;
+    --primary: 252 100% 68%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 225 40% 15%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 225 30% 15%;
+    --muted-foreground: 0 0% 70%;
+    --accent: 252 100% 68%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 4 90% 58%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 225 30% 20%;
+    --input: 225 30% 20%;
+    --ring: 252 100% 68%;
+    --radius: 0.625rem;
+    
+    /* Custom S.H.I.E.L.D Colors */
+    --shield-dark: #070913;
+    --shield-navy: #1a1f3d;
+    --shield-blue: #2d3a8c;
+    --shield-purple: #7B61FF;
+    --shield-red: #FF3B30;
+    --shield-amber: #FF9500;
+    --shield-teal: #34C759;
+    --shield-cyan: #00D4FF;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', sans-serif;
+    background-color: var(--shield-dark);
+    overflow-x: hidden;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Orbitron', sans-serif;
+  }
+}
+
+@layer components {
+  /* Glassmorphism Card */
+  .glass-card {
+    @apply backdrop-blur-xl bg-white/5 border border-white/10 rounded-xl;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  }
+  
+  .glass-card-strong {
+    @apply backdrop-blur-2xl bg-white/10 border border-white/20 rounded-xl;
+    box-shadow: 0 8px 32px 0 rgba(123, 97, 255, 0.15);
+  }
+  
+  /* Glow Effects */
+  .glow-purple {
+    box-shadow: 0 0 20px rgba(123, 97, 255, 0.5),
+                0 0 40px rgba(123, 97, 255, 0.3),
+                0 0 60px rgba(123, 97, 255, 0.1);
+  }
+  
+  .glow-red {
+    box-shadow: 0 0 20px rgba(255, 59, 48, 0.5),
+                0 0 40px rgba(255, 59, 48, 0.3);
+  }
+  
+  .glow-text-purple {
+    text-shadow: 0 0 10px rgba(123, 97, 255, 0.8),
+                 0 0 20px rgba(123, 97, 255, 0.5);
+  }
+  
+  /* Gradient Borders */
+  .gradient-border {
+    position: relative;
+    background: linear-gradient(var(--shield-dark), var(--shield-dark)) padding-box,
+                linear-gradient(135deg, var(--shield-purple), var(--shield-cyan)) border-box;
+    border: 1px solid transparent;
+  }
+  
+  /* Button Styles */
+  .btn-primary {
+    @apply relative overflow-hidden px-8 py-4 rounded-lg font-semibold text-white transition-all duration-300;
+    background: linear-gradient(135deg, var(--shield-purple), var(--shield-blue));
+  }
+  
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(123, 97, 255, 0.4);
+  }
+  
+  .btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s;
+  }
+  
+  .btn-primary:hover::before {
+    left: 100%;
+  }
+  
+  /* HUD Corner Elements */
+  .hud-corner {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border: 2px solid var(--shield-purple);
+  }
+  
+  .hud-corner-tl {
+    top: -2px;
+    left: -2px;
+    border-right: none;
+    border-bottom: none;
+  }
+  
+  .hud-corner-tr {
+    top: -2px;
+    right: -2px;
+    border-left: none;
+    border-bottom: none;
+  }
+  
+  .hud-corner-bl {
+    bottom: -2px;
+    left: -2px;
+    border-right: none;
+    border-top: none;
+  }
+  
+  .hud-corner-br {
+    bottom: -2px;
+    right: -2px;
+    border-left: none;
+    border-top: none;
+  }
+  
+  /* Scan Line Effect */
+  .scan-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--shield-cyan), transparent);
+    animation: scan 4s linear infinite;
+    opacity: 0.6;
+  }
+  
+  @keyframes scan {
+    0% { top: 0; }
+    100% { top: 100%; }
+  }
+  
+  /* Pulse Animation */
+  .pulse-ring {
+    animation: pulse-ring 2s ease-out infinite;
+  }
+  
+  @keyframes pulse-ring {
+    0% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(1.5);
+      opacity: 0;
+    }
+  }
+  
+  /* Radar Sweep */
+  .radar-sweep {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: conic-gradient(from 0deg, transparent 0deg, rgba(123, 97, 255, 0.1) 60deg, transparent 60deg);
+    animation: radar-rotate 8s linear infinite;
+  }
+  
+  @keyframes radar-rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  
+  /* Data Stream Effect */
+  .data-stream {
+    position: absolute;
+    font-family: 'Orbitron', monospace;
+    font-size: 10px;
+    color: rgba(123, 97, 255, 0.1);
+    white-space: nowrap;
+    animation: data-fall 10s linear infinite;
+  }
+  
+  @keyframes data-fall {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(100vh); }
+  }
+  
+  /* Glitch Effect */
+  .glitch {
+    position: relative;
+  }
+  
+  .glitch:hover {
+    animation: glitch 0.3s ease-in-out;
+  }
+  
+  @keyframes glitch {
+    0%, 100% { transform: translate(0); }
+    20% { transform: translate(-2px, 2px); }
+    40% { transform: translate(-2px, -2px); }
+    60% { transform: translate(2px, 2px); }
+    80% { transform: translate(2px, -2px); }
+  }
+  
+  /* Severity Indicators */
+  .severity-high {
+    @apply text-red-500;
+    text-shadow: 0 0 10px rgba(255, 59, 48, 0.8);
+  }
+  
+  .severity-medium {
+    @apply text-amber-500;
+    text-shadow: 0 0 10px rgba(255, 149, 0, 0.8);
+  }
+  
+  .severity-low {
+    @apply text-teal-500;
+    text-shadow: 0 0 10px rgba(52, 199, 89, 0.8);
+  }
+  
+  /* Scrollbar Styling */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: var(--shield-dark);
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: var(--shield-purple);
+    border-radius: 4px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--shield-cyan);
+  }
+  
+  /* Leaflet Map Dark Theme */
+  .leaflet-container {
+    background: var(--shield-dark) !important;
+    font-family: 'Inter', sans-serif;
+  }
+  
+  .leaflet-popup-content-wrapper {
+    background: var(--shield-navy) !important;
+    color: white !important;
+    border: 1px solid var(--shield-purple);
+    border-radius: 8px;
+  }
+  
+  .leaflet-popup-tip {
+    background: var(--shield-purple) !important;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, var(--shield-purple), var(--shield-cyan));
+  }
+  
+  .bg-grid-pattern {
+    background-image: 
+      linear-gradient(rgba(123, 97, 255, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(123, 97, 255, 0.05) 1px, transparent 1px);
+    background-size: 50px 50px;
+  }
+  
+  .bg-radial-glow {
+    background: radial-gradient(ellipse at center, rgba(123, 97, 255, 0.15) 0%, transparent 70%);
+  }
+}
